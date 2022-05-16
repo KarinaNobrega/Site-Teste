@@ -9,11 +9,58 @@
     <title>Site Teste</title>
 </head>
 <body>
-    
-<div class="scroll-up-btn"> <!--Botão para subir a página-->
+    <!--
+<div class="scroll-up-btn"> -> Botão para subir a página
     <ion-icon name="chevron-up-outline"></ion-icon>
+</div> -> scroll-up-btn-->
 
-</div><!--scroll-up-btn-->
+<div class="navigation">
+        <div class="menuToggle"></div> <!--menuToggel-->
+    
+    <ul>
+        <li class="list active" style="--clr:#e6760e">
+            <a href="#home"><!-- local em que será inserido o link da página HOME-->
+                <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+                <span class="text">Home</span>
+            </a>
+        </li>
+        <li class="list" style="--clr:#f44336">
+            <a href="#about"><!-- local em que será inserido o link da página HOME-->
+                <span class="icon"><ion-icon name="book-outline"></ion-icon></span>
+                <span class="text">Sobre</span>
+            </a>
+        </li>
+        <li class="list" style="--clr:#ffa117">
+            <a href="#product"><!-- local em que será inserido o link da página ABOUT-->
+                <span class="icon"><ion-icon name="bag-outline"></ion-icon></span>
+                <span class="text">Produtos</span>
+            </a>
+        </li>
+        <li class="list" style="--clr:#0fc70f">
+            <a href="#mark"><!-- local em que será inserido o link da página MESSAGES-->
+                <span class="icon"><ion-icon name="bookmarks-outline"></ion-icon></span>
+                <span class="text">Marcas</span>
+            </a>
+        </li>
+        <li class="list" style="--clr:#2196f3">
+            <a href="#dicas"><!-- local em que será inserido o link da página PHOTOS-->
+                <span class="icon"><ion-icon name="create-outline"></ion-icon></span>
+                <span class="text">Dicas</span>
+            </a>
+        </li>
+        <li class="list" style="--clr:#b145e9">
+            <a href="#contact"><!-- local em que será inserido o link da página SETTINGS-->
+                <span class="icon"><ion-icon name="chatbubble-ellipses-outline"></span>
+                <span class="text">Contato</span>
+            </a>
+        </li>
+    </ul>
+</div> <!--navigation-->
+
+
+
+
+<!--
     <div class="navbar">
         <div class="max-width">
             <div class="logo"><a href="#">M<span>es</span>a P<span>ost</span>a</a></div>
@@ -33,18 +80,16 @@
             </div>
             <div class="menu-btn">
                 <ion-icon name="grid-outline"></ion-icon>
-            </div><!--menu-btn-->
-        </div><!--max-width-->
-    </div><!--navbar-->
-
+            </div> -> menu-btn
+        </div> -> max-width
+    </div> -> navbar 
+-->
 <!--home-início-->
     <section class="home" id="home">
         <div class="max-width">
             <div class="home-content">
-                <div class="text-1"><span class="typing">Mesa Posta</span></div><!--text-1--> <!--COLOCAR NO JS O 'MESA POSTA'-->
-                <div class="text-2">tem o poder de unir
-                    a família e criar memórias afetivas,
-                    momento de conexão com a casa e a família!</div><!--text-2-->
+               <div class="text"><span>MESA POSTA</span><br>
+                tem o poder de unir a família <br> e criar memórias afetivas, <br>momento de conexão com a casa e a família!</div><!--text-2-->
                 </div><!--home-content-->
         </div><!--max-width-->
     </section><!--home-->
@@ -232,5 +277,25 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
 
 <script href="index.js"></script>
+
+<!-- script teste menu-->
+<script>
+    const menuToggle = document.querySelector('.menuToggle');
+    const navigation = document.querySelector('.navigation');
+    menuToggle.onclick = function(){
+        navigation.classList.toggle('open')
+    }
+
+    const list = document.querySelectorAll('.list');
+    function activeLink(){
+        list.forEach((item) =>
+        item.classList.remove('active'));
+        this.classList.add('active');
+    }
+    list.forEach((item) =>
+    item.addEventListener('click', activeLink))
+
+</script>
+
 </body>
 </html>

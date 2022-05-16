@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Flamenco&family=Ubuntu:wght@300;400;500&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Zen+Loop&display=swap');
+
 /*Aplicação em todo o projeto:*/
 *{
     margin: 0;
@@ -18,8 +20,149 @@ html{ /*botão para subir a página*/
     margin: auto;
 }
 
-/* navbar - início*/
-.navbar{ /*Barra de navegação */
+/*MUDANDO O MENU - TESTE*/
+
+.navigation{ /*barra de navegação, canto esquerdo*/
+    position: fixed; /*elemento pai, com position diferente de static*/
+    inset: 20px 0 20px 5px; /*inserir*/
+    width: 70px;
+    height: 90%;
+    margin: -5px 0;
+    background: rgba(255, 255, 255, 0.329);
+    background-position: -100%;
+    transition: 0.5s;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content:center;
+    align-content: space-around;
+    border-radius: 5px;
+}
+.navigation.open{ /*quando abrir a barra de navegação*/
+    width: 180px; /*expandir-se-á em 180px*/
+}
+.navigation .menuToggle{ /* risquinhos do menu*/
+    position: absolute; /*será posicionado em relação ao elemento pai 'navigation'.*/
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    border-bottom: 1px solid rgba(0,0, 0, 0.25);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /*justificar o conteúdo: início flexível */
+    padding: 0 23px;
+}
+.navigation .menuToggle::before { /*riscos que representarão o menu. - before = antes */
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 2px;
+    background-color: #333;
+    transform: translateY(-8px);
+    transition: 0.5s;
+}
+.navigation.open .menuToggle::before{
+    transform: translateY(0px) rotate(45deg); /*inclinar um risco em 45 graus*/
+
+}
+.navigation .menuToggle::after { /*riscos do menu ao ser expandido - after = depois*/
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 2px;
+    background-color: #333;
+    transform: translateY(8px);
+    transition: 0.5s;
+    box-shadow: 0 -8px 0 #333;
+}
+.navigation.open .menuToggle::after{ /*deixará um X no lugar dos 3 riscos do menu. */
+    transform: translateY(0px) rotate(-45deg);
+    box-shadow: 0 0 0 #333;
+}
+.navigation ul{ /*lista desordenada - estrutura da lista*/
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+.navigation ul li{ /*itens da lista, corpo*/
+    list-style: none;
+    position: relative;
+    width: 100%;
+    height: 60px;
+    padding: 0 10px;
+    transition: 0.5s;
+}
+.navigation ul li.active{  /*quando a lista for ativada*/
+    transform: translateX(30px);
+}
+
+.navigation.open ul li.active{
+    transform: translateX(10px);
+}
+.navigation ul li a{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+}
+.navigation ul li a .icon{ /*Icones da lista*/
+    position: relative; /*altera sua posição em relação à posição inicial*/
+    display: block;
+    min-width: 55px; /*largura mínima*/
+    height: 55px;
+    line-height: 60px;
+    transition: 0.5s;
+    border-radius: 10px;
+    font-size: 1.75em;
+    color: #222;
+}
+.navigation ul li.active a .icon{ /*cor do ícone ao ser acionado */
+    color: #fff;
+    background: var(--clr);
+}
+.navigation ul li a .icon::before{
+    content: '';
+    position: absolute; /* posição do ícone em relação ao elemento pai 'navigation'*/
+    top: 10px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--clr);
+    filter: blur(8px); /*filtro - deixará a cor esfumaçada. */
+    opacity: 0;
+    transition: 0.5s;
+}
+.navigation ul li.active a .icon::before{
+    opacity: 1;
+}
+.navigation ul li a .text{
+    position: relative;
+    padding: 0 15px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    color: #333;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.5s;
+}
+.navigation.open ul li a .text{
+    opacity: 1;
+    visibility: visible;
+}
+.navigation ul li.active a .text {
+    color: var(--clr);
+}
+
+/*PROJETO INICIAL*/
+/*
+ navbar - início
+.navbar{ /*Barra de navegação 
     position: fixed;
     width: 100%;
     font-family: 'Ubuntu', sans-serif;
@@ -28,32 +171,32 @@ html{ /*botão para subir a página*/
     transition: all 0.3s ease;
 }
 
-.navbar.sticky{ /*Propriedade add pelo JS, ao rolar a página, a barra de navegação ficará na cor amarela. -- NÃO ESTÁ FUNCIONANDO*/
+.navbar.sticky{ /*Propriedade add pelo JS, ao rolar a página, a barra de navegação ficará na cor amarela. -- NÃO ESTÁ FUNCIONANDO
     background: #cfc49f;
     padding: 10px 0;
 }
 
-.navbar .max-width{ /*Espaço em que ficará as section com a apresentação (Nome e profissição)*/
+.navbar .max-width{ /*Espaço em que ficará as section com a apresentação (Nome e profissição)
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-.navbar .logo a{ /*Tamanho da Palavra PORTFÓLIO, padding e peso dela. */
+.navbar .logo a{ /*Tamanho da Palavra PORTFÓLIO, padding e peso dela. 
     color: rgb(0, 0, 0);
     font-size: 35px;
     font-weight: 500;
 }
 
-.navbar .logo a span{ /*Palavra PORTFÓLIO ficará com duas cores sem rolar a pág.*/
+.navbar .logo a span{ /*Palavra PORTFÓLIO ficará com duas cores sem rolar a pág.
     color: #ffc400;
     transition: all 0.3s ease;
 }
 
-.navbar.sticky .logo a span{ /*Palavra PORTFÓLIO ficará em branco ao rolar a página*/
+.navbar.sticky .logo a span{ /*Palavra PORTFÓLIO ficará em branco ao rolar a página
     color: #fff;
 }
 
-.navbar .menu li{ /*Menu de acesso com a página grande.*/
+.navbar .menu li{ /*Menu de acesso com a página grande.
     list-style: none;
     display: inline-block;
     font-size: 18px;
@@ -88,7 +231,7 @@ html{ /*botão para subir a página*/
 .ionicons:hover{
     color: #ffc400;
 }
-
+*/
 
 /* home-início */
 .home{
@@ -101,31 +244,35 @@ html{ /*botão para subir a página*/
     min-height: 500px;
     font-family: 'Ubuntu', sans-serif;
 }
-
-.home .max-width{
-    margin:  auto 0 auto 40px;
-}
-
-.home .home-content .text-1{
-    font-size: 20px;
-    text-align: center;
-}
-
-.home .home-content .text-2{
-    font-size: 30px;
-    font-weight:500;
-    text-align: center;
+.home .home-content{
     justify-content: center;
-    display: flex;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.274);
+    background-position: center;
 }
-
-.home .home-content .text-1 span{
+.home .home-content .text{
+    font-size: 50px;
+    font-weight:1000;
+    display: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Zen Loop', cursive;
+    color: black;
+    margin: 10px 15px;
+}
+.home .home-content .text span{
     color: white;
-    font-weight: 500;
+    font-size: 100px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
 
-/*Menu Mobile -- ARRUMAR DEPOIS*/
+
+
+/*Menu Mobile -- ARRUMAR DEPOIS
 .menu-btn{
     color: #ffc400;
     font-size: 26px;
@@ -549,15 +696,26 @@ footer span a:hover{
 
 /*Responsivo - site ficará acessível para tamanhos menores da página, isto é, para tablet e celular*/
 @media (max-width: 1300px){
-    .navbar .max-width{
+  /*  .navbar .max-width{
         margin-left: 0;
-    }
+    }*/
+    .about .about-content .left-1 .img{
+        display: flex;
+        justify-content: center;
+        margin: 0 35px;
+        width: 95%;
+  }
 }
 
 @media (max-width: 1104px){
-    .about .about-content .left img{
-        width: 350px;
-        height: 350px;
+    .about .about-content .column{
+        width: 50%;
+    }
+    .about .about-content .left-1 .img{
+      display: flex;
+      justify-content: center;
+      margin: 0 35px;
+      width: 85%;
     }
 }
 
@@ -575,7 +733,7 @@ footer span a:hover{
     .menu-btn{
         display: block;
         z-index: 999;
-    }
+    }/*
     .navbar .menu{
         position: fixed;
         width: 100%;
@@ -598,21 +756,22 @@ footer span a:hover{
         display: inline-block;
         margin: 20px 0;
         font-size: 25px;
+    }*/
+    .home .home-content .text{
+        font-size: 40px;
     }
-    .home .home-content .text-2{
-        font-size: 70px;
-    }
-    .home .home-content a{
-        font-size: 23px;
-        padding: 10px 30px;
+    .home .home-content .text span{
+        font-size: 55px;
     }
     .about .about-content .column{
         width: 50%;
     }
-    .about .about-content .left{ /*propriedade que deixará a imagem centralizada, na página, com o texto em baixo, de forma responsiva, para quando o site for aberto em celular ou tablet.*/
+    .about .about-content .left-1 .img{ /*propriedade que deixará a imagem centralizada, na página, com o texto em baixo, de forma responsiva, para quando o site for aberto em celular ou tablet.*/
         display: flex;
         justify-content: center;
-        margin: 0 auto 60px;
+        margin: 0 auto 0 50%;
+        width: 100%;
+        height: 100%;
     }
     .about .about-content .right{ /*propriedade que deixará o texto em baixo da imagem, de forma responsiva, para quando o site for aberto em celular ou tablet.*/
         flex: 100%;
@@ -642,11 +801,8 @@ footer span a:hover{
 }
 
 @media (max-width: 690px){
-    .home .home-content .text-2{
-        font-size: 60px;
-    }
-    .home .home-content a{
-        font-size: 20px;
+    .home .home-content .text{
+        font-size: 35px;
     }
     .product .prod-content .card {
         width: 100%;
@@ -654,7 +810,43 @@ footer span a:hover{
 }
 
 @media (max-width: 500px){
-    .home .home-content .text-2{
-        font-size: 50px;
+    .home .home-content{
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+    .home .home-content .text{
+        text-align: center;
+        justify-content: center;
+    }
+    .dicas .dicas-content{
+        display: flex;
+        text-align: center;
+        flex-direction: column;
+        align-content: center;
+    }
+    .dicas .dicas-content .card{
+        display: flex;
+        text-align: center;
+        flex-direction: column;
+        align-content: center;
+        width: 90%;
+        margin: 10px 0;
+    }
+    .dicas .dicas-content .card .box img{
+        width: 90%;
+        height: 90%;
+        display: flex;
+        text-align: center;
+        flex-direction: column;
+        align-content: center;  
+    }
+    .about .about-content .left-1 .img{ /*propriedade que deixará a imagem centralizada, na página, com o texto em baixo, de forma responsiva, para quando o site for aberto em celular ou tablet.*/
+        display: flex;
+        justify-content: center;
+        margin: 0 auto 0 50%;
+        width: 100%;
+        height: 100%;
     }
 }

@@ -1,11 +1,10 @@
 /*PROJETO FEITO COM JS E JQuery*/
-
 $(document).ready(function(){
     $(window).scroll(function(){
         if(this.scrollY > 20){
-            $('.navbar').addClass("sticky");
+            $('.navigation').addClass("sticky");
         }else{
-            $('.navbar').removeClass("sticky");
+            $('.navigation').removeClass("sticky");
         }
         if(this.scrollY > 500){
             $('.scrool-up-btn').addClass("show");
@@ -22,19 +21,8 @@ $(document).ready(function(){
         $('.scroll-up-btn').click(function(){
             $('html').animate({scrollTop: 0}); 
         });
-
-    var typed = new Typed(".typing", {
-        strings:["Mesa Posta"],
-        typeSpeed:80,
-        backSpeed:60,
-        loop:true
-    });
-   
-    $('.menu-btn').click(function(){
-        $('.navbar .menu').toggleClass("active");
-        $('.menu-btn i').toggleClass("active");
-    });
-    $('.carousel').owlCarousel({
+ 
+     $('.carousel').owlCarousel({
         margin:20,
         loop:true, 
         autoplayTimeOut:2000,
@@ -53,4 +41,6 @@ $(document).ready(function(){
                 nav:false
             }
         }
+
+
     });
